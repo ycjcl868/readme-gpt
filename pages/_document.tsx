@@ -8,22 +8,6 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" sizes="192x192" href="/favicon.ico"></link>
           <meta
-            name="description"
-            content="Simplify your chat content in seconds."
-          />
-          <meta property="og:site_name" content="README Generator" />
-          <meta
-            property="og:description"
-            content="Simplify your chat content in seconds."
-          />
-          <meta property="og:title" content="README Generator" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="README Generator" />
-          <meta
-            name="twitter:description"
-            content="Generate your Github Readme with OpenAI and Vercel Edge Functions."
-          />
-          <meta
             property="og:image"
             content="/og-image.png"
           />

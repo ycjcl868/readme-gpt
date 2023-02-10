@@ -92,6 +92,22 @@ const Home: NextPage = () => {
     <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
         <title>{t('title')}</title>
+        <meta
+          name="description"
+          content={t('description2')}
+        />
+        <meta property="og:site_name" content={t('title')} />
+        <meta
+          property="og:description"
+          content={t('description2')}
+        />
+        <meta property="og:title" content={t('title')} />
+        <meta name="twitter:card" content={t('description2')} />
+        <meta name="twitter:title" content={t('title')} />
+        <meta
+          name="twitter:description"
+          content={t('description2')}
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
