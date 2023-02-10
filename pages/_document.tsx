@@ -11,17 +11,17 @@ class MyDocument extends Document {
             name="description"
             content="Simplify your chat content in seconds."
           />
-          <meta property="og:site_name" content="Chat Simplifier" />
+          <meta property="og:site_name" content="README Generator" />
           <meta
             property="og:description"
             content="Simplify your chat content in seconds."
           />
-          <meta property="og:title" content="Chat Simplifier" />
+          <meta property="og:title" content="README Generator" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Chat Simplifier" />
+          <meta name="twitter:title" content="README Generator" />
           <meta
             name="twitter:description"
-            content="Simplify your chat content in seconds."
+            content="Generate your Github Readme with OpenAI and Vercel Edge Functions."
           />
           <meta
             property="og:image"
