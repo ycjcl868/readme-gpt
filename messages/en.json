@@ -1,7 +1,7 @@
 {
   "Index": {
     "title": "README Generator",
-    "switchLocale": "",
+    "switchLocale": "中文",
     "deployWiki": "Deploy your own website?",
     "description2": "Help you generate a complete Github README",
     "slogan": "Writing Github README big head? Let me help you!",

@@ -1,7 +1,7 @@
 {
   "Index": {
     "title": "README 生成器",
-    "switchLocale": "",
+    "switchLocale": "EN",
     "deployWiki": "部署自己的网站？",
     "description2": "帮你生成完整 Github README",
     "slogan": "写 Github README 头大？我来帮你！",
