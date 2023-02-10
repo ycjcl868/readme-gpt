@@ -6,6 +6,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="icon" href="/favicon.ico" />
+          <link rel="apple-touch-icon" sizes="192x192" href="/favicon.ico"></link>
           <meta
             name="description"
             content="Simplify your chat content in seconds."
