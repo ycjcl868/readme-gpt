@@ -1,0 +1,25 @@
+{
+  "Index": {
+    "title": "README 生成器",
+    "switchLocale": "",
+    "deployWiki": "部署自己的网站？",
+    "description2": "帮你生成完整 Github README",
+    "slogan": "写 Github README 头大？我来帮你！",
+    "step0": "粘贴你的 OpenAI API Key",
+    "openaiApiKeyPlaceholder": "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "step1": "简单描述一下你的项目简介",
+    "helpPageLink": "(点击这里查看教程)",
+    "placeholder": "README GPT，一个可以帮你自动生成 Github README 的工具， 使用 Vercel 和 Next.js 构建",
+    "step2": "选择输出结果的形式。",
+    "simplifierButton": "生成完整 README",
+    "simplifiedContent": "生成的 README",
+    "privacyPolicy1": "请勿上传过于隐私的内容，详情查看",
+    "privacyPolicy2": "《隐私声明》",
+    "paragraphForm": "段落",
+    "prompt": "请帮我把以下的 Github 项目介绍填充为一篇完整的 Github README 说明,用 markdown 格式叙述的形式输出,标题适当加一些 emoji 表情:",
+    "outlineForm": "大纲",
+    "pasteButton": "粘贴",
+    "clearButton": "清空",
+    "notice":"现在访问量激增服务会不稳定，可以先收藏此网站，闲时再用，大家太热情了，随手发布的项目收获到了远超预想的关注。"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "Index": {
+    "title": "README Generator",
+    "switchLocale": "",
+    "deployWiki": "Deploy your own website?",
+    "description2": "Help you generate a complete Github README",
+    "slogan": "Writing Github README big head? Let me help you!",
+    "step0": "Paste your OpenAI API Key",
+    "openaiApiKeyPlaceholder": "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "step1": "Give a brief description of your project",
+    "helpPageLink": "(Click here for the tutorial)",
+    "placeholder": "README GPT, a tool that automatically generates Github ReadMes for you, built using Vercel and Next",
+    "step2": "Select the form of the output.",
+    "simplifierButton": "Generate README",
+    "simplifiedContent": "README",
+    "privacyPolicy1": "Do not upload too private content, details check",
+    "privacyPolicy2": "《Privacy Statement》",
+    "paragraphForm": "paragraph",
+    "prompt": "Please help me populate the following Github project introduction into a complete Github README description, in markdown format, with some emojis as appropriate:",
+    "outlineForm": "Outline",
+    "pasteButton": "Paste",
+    "clearButton": "Clear",
+    "notice":"Now the service will be unstable due to the surge in visits, so you can first collect this website and use it in your spare time. Everyone is too enthusiastic, and the projects released at random have received far more attention than expected."
+  }
+}
