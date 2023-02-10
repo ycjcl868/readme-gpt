@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { useTranslations } from 'next-intl'
 import { Toaster, toast } from "react-hot-toast";
+import { TwitterShareButton } from "react-share";
+import { TwitterIcon } from "react-share";
 import DropDown, { FormType } from "../components/DropDown";
 import Footer from "../components/Footer";
 import Github from "../components/GitHub";
@@ -95,15 +97,23 @@ const Home: NextPage = () => {
 
       <Header />
       <main className="flex flex-1 w-full flex-col items-center justify-center px-4 mt-12 sm:mt-20">
-      <a
-          className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-600 shadow-md transition-colors hover:bg-gray-100 mb-5"
-          href="https://github.com/ycjcl868/readme-gpt"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Github />
-          <p>Star on GitHub</p>
-        </a>
+        <div className="flex items-center justify-center mb-5">
+          <a
+              className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-600 shadow-md transition-colors hover:bg-gray-100 mr-3"
+              href="https://github.com/ycjcl868/readme-gpt"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github />
+              <p>Star on GitHub</p>
+            </a>
+            <TwitterShareButton
+              url={"https://readme.rustc.cloud/"}
+              hashtags={["chatgpt", "readme", "github"]}
+            >
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+        </div>
         <h1 className="sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900">
           <div className=" px-4 py-2 sm:mt-3 mt-8 hover:bg-black/80 w-full"></div>{t('description2')}
         </h1>
