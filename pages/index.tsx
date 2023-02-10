@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl'
 import { Toaster, toast } from "react-hot-toast";
 import { TwitterShareButton } from "react-share";
@@ -16,6 +16,9 @@ import LoadingDots from "../components/LoadingDots";
 import ResizablePanel from "../components/ResizablePanel";
 import { marked } from "marked";
 
+const useUserKey = process.env.NEXT_PUBLIC_USE_USER_KEY === "true";
+const useNotice = process.env.NEXT_NOTICE === "true";
+
 const Home: NextPage = () => {
   const t = useTranslations('Index')
 
@@ -27,13 +30,14 @@ const Home: NextPage = () => {
 
   console.log("Streamed response: ", generatedChat);
 
+  useEffect(() => {
+    setChat(t('placeholder'));
+  }, [t('placeholder')])
+
   const prompt =
     form === 'paragraphForm'?
       `${t('prompt')}${chat}`
       : `${t('prompt')}${chat}`;
-
-  const useUserKey = process.env.NEXT_PUBLIC_USE_USER_KEY === "true";
-  const useNotice = process.env.NEXT_NOTICE === "true";
 
   const generateChat = async (e: any) => {
     e.preventDefault();
