@@ -123,7 +123,6 @@ const Home: NextPage = () => {
           </TwitterShareButton>
         </div>
         <h1 className='sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900'>
-          <div className=' px-4 py-2 sm:mt-3 mt-8 hover:bg-black/80 w-full'></div>
           {t('description2')}
         </h1>
         <p className='text-slate-500 mt-5'>{t('slogan')}</p>
