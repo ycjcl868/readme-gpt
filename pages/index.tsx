@@ -104,7 +104,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
-      <main className='flex flex-1 w-full flex-col items-center justify-center px-4 mt-12 sm:mt-20'>
+      <main className='flex flex-1 w-full flex-col items-center justify-center px-4 mt-12 mt-0'>
         <div className='flex items-center justify-center mb-5'>
           <a
             className='flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-600 shadow-md transition-colors hover:bg-gray-100 mr-3'
@@ -123,6 +123,7 @@ const Home: NextPage = () => {
           </TwitterShareButton>
         </div>
         <h1 className='sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900'>
+          <div className=' px-4 py-2 sm:mt-3 mt-8 w-full' />
           {t('description2')}
         </h1>
         <p className='text-slate-500 mt-5'>{t('slogan')}</p>
