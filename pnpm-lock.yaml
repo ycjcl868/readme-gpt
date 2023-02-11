@@ -23,7 +23,6 @@ specifiers:
   prettier: ^2.8.4
   react: 18.2.0
   react-dom: 18.2.0
-  react-hook-form: ^7.43.1
   react-hot-toast: ^2.4.0
   react-share: ^4.4.1
   react-use-measure: ^2.1.1
@@ -45,7 +44,6 @@ dependencies:
   next-intl: 2.10.2_next@13.1.6+react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-hook-form: 7.43.1_react@18.2.0
   react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
   react-share: 4.4.1_react@18.2.0
   react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
@@ -1196,15 +1194,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
-
-  /react-hook-form/7.43.1_react@18.2.0:
-    resolution: {integrity: sha512-+s3+s8LLytRMriwwuSqeLStVjRXFGxgjjx2jED7Z+wz1J/88vpxieRQGvJVvzrzVxshZ0BRuocFERb779m2kNg==}
-    engines: {node: '>=12.22.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17 || ^18
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /react-hot-toast/2.4.0_biqbaboplfbrettd7655fr4n2y:
