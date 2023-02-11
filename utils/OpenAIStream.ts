@@ -15,6 +15,7 @@ export interface OpenAIStreamPayload {
   stream: boolean
   n: number
   api_key?: string
+  stop?: string[]
 }
 
 export async function OpenAIStream(payload: OpenAIStreamPayload) {

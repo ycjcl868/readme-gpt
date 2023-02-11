@@ -34,6 +34,7 @@ const handler = async (req: Request): Promise<Response> => {
     max_tokens: 1536,
     stream: true,
     n: 1,
+    stop: ['<|im_end|>'],
     api_key
   }
 
