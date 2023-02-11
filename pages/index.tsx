@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 import { Toaster, toast } from 'react-hot-toast'
 import { TwitterShareButton } from 'react-share'
 import Balancer from 'react-wrap-balancer'
+import { marked } from 'marked'
 import type { FormType } from '../components/DropDown'
 import Footer from '../components/Footer'
 import Github from '../components/GitHub'
@@ -15,10 +16,12 @@ import TwitterIcon from '../components/TwitterIcon'
 import Header from '../components/Header'
 import LoadingDots from '../components/LoadingDots'
 import ResizablePanel from '../components/ResizablePanel'
-import { marked } from 'marked'
+import { fetchWithTimeout } from './utils'
 
 const useUserKey = process.env.NEXT_PUBLIC_USE_USER_KEY === 'true'
 const useNotice = process.env.NEXT_NOTICE === 'true'
+
+const REQUEST_TIMEOUT = 15 * 1000 // 15s timeout
 
 const Home: NextPage = () => {
   const t = useTranslations('Index')
@@ -51,26 +54,39 @@ const Home: NextPage = () => {
     setGeneratedChat('')
     setLoading(true)
 
-    const response = useUserKey
-      ? await fetch('/api/generate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            prompt,
-            api_key
+    let response
+    try {
+      response = useUserKey
+        ? await fetchWithTimeout('/api/generate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            timeout: REQUEST_TIMEOUT,
+            body: JSON.stringify({
+              prompt,
+              api_key
+            })
           })
-        })
-      : await fetch('/api/generate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            prompt
+        : await fetchWithTimeout('/api/generate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            timeout: REQUEST_TIMEOUT,
+            body: JSON.stringify({
+              prompt
+            })
           })
-        })
+    } catch (e: unknown) {
+      console.error('[fetch ERROR]', e)
+      if (e instanceof Error && e?.name === 'AbortError') {
+        // timeout
+        setLoading(false)
+        toast.error(t('timeout'))
+      }
+      return
+    }
 
     console.log('Edge function returned.')
 
