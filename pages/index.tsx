@@ -21,7 +21,7 @@ import { fetchWithTimeout } from '../utils/fetchWithTimeout'
 const useUserKey = process.env.NEXT_PUBLIC_USE_USER_KEY === 'true'
 const useNotice = process.env.NEXT_NOTICE === 'true'
 
-const REQUEST_TIMEOUT = 15 * 1000 // 15s timeout
+const REQUEST_TIMEOUT = 10 * 1000 // 10s timeout
 
 const Home: NextPage = () => {
   const t = useTranslations('Index')
