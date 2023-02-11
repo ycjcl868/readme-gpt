@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import { Toaster, toast } from 'react-hot-toast'
 import { TwitterShareButton } from 'react-share'
 import Balancer from 'react-wrap-balancer'
-import { FormType } from '../components/DropDown'
+import type { FormType } from '../components/DropDown'
 import Footer from '../components/Footer'
 import Github from '../components/GitHub'
 
