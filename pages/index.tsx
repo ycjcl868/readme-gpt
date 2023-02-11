@@ -127,7 +127,6 @@ const Home: NextPage = () => {
         <meta name='twitter:card' content={t('description2')} />
         <meta name='twitter:title' content={t('title')} />
         <meta name='twitter:description' content={t('description2')} />
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <Header />
