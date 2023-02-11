@@ -2,11 +2,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toaster, toast } from 'react-hot-toast'
 import { TwitterShareButton } from 'react-share'
-import DropDown, { FormType } from '../components/DropDown'
+import { FormType } from '../components/DropDown'
 import Footer from '../components/Footer'
 import Github from '../components/GitHub'
 
@@ -34,11 +34,19 @@ const Home: NextPage = () => {
     setChat(t('placeholder'))
   }, [t('placeholder')])
 
-  const prompt =
-    form === 'paragraphForm' ? `${t('prompt')}${chat}` : `${t('prompt')}${chat}`
+  const prompt = useMemo(() => {
+    return form === 'paragraphForm'
+      ? `${t('prompt')}${chat}`
+      : `${t('prompt')}${chat}`
+  }, [form, chat, t('prompt')])
 
   const generateChat = async (e: any) => {
     e.preventDefault()
+
+    if (!chat) {
+      return
+    }
+
     setGeneratedChat('')
     setLoading(true)
 
@@ -88,6 +96,8 @@ const Home: NextPage = () => {
 
     setLoading(false)
   }
+
+  const disabled = !chat
 
   return (
     <div className='flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen'>
@@ -159,13 +169,17 @@ const Home: NextPage = () => {
             onChange={(e) => setChat(e.target.value)}
             rows={4}
             className='w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-2'
-            placeholder={t('placeholder')}
           />
 
           {!loading && (
             <button
-              className='bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-5 mt-8 hover:bg-black/80 w-full'
+              className={`bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-5 mt-8 w-full ${
+                disabled
+                  ? 'cursor: not-allowed bg-[#fafafa] border border-[#eaeaea] text-[#888] filter grayscale'
+                  : 'hover:bg-black/80'
+              }`}
               onClick={(e) => generateChat(e)}
+              disabled={disabled}
             >
               {t('simplifierButton')} &rarr;
             </button>
