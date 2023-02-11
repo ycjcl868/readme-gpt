@@ -6,6 +6,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toaster, toast } from 'react-hot-toast'
 import { TwitterShareButton } from 'react-share'
+import Balancer from 'react-wrap-balancer'
 import { FormType } from '../components/DropDown'
 import Footer from '../components/Footer'
 import Github from '../components/GitHub'
@@ -136,8 +137,8 @@ const Home: NextPage = () => {
           </TwitterShareButton>
         </div>
         <h1 className='sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900'>
-          <div className=' px-4 py-2 sm:mt-3 mt-8 w-full' />
-          {t('description2')}
+          <div className='px-4 py-2 sm:mt-3 mt-8 w-full' />
+          <Balancer>{t('description2')}</Balancer>
         </h1>
         <p className='text-slate-500 mt-5'>{t('slogan')}</p>
         {useNotice && <p className='text-slate-500 mt-5'>{t('notice')}</p>}
