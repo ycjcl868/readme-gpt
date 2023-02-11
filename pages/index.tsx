@@ -16,7 +16,7 @@ import TwitterIcon from '../components/TwitterIcon'
 import Header from '../components/Header'
 import LoadingDots from '../components/LoadingDots'
 import ResizablePanel from '../components/ResizablePanel'
-import { fetchWithTimeout } from './utils'
+import { fetchWithTimeout } from '../utils/fetchWithTimeout'
 
 const useUserKey = process.env.NEXT_PUBLIC_USE_USER_KEY === 'true'
 const useNotice = process.env.NEXT_NOTICE === 'true'
