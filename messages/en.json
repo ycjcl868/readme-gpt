@@ -4,7 +4,7 @@
     "switchLocale": "中文",
     "deployWiki": "Deploy your own website?",
     "description2": "Help you generate a complete Github README",
-    "slogan": "Writing Github README big head? Let me help you!",
+    "slogan": "Too stressed Out to Write Github README? Let me help you!",
     "step0": "Paste your OpenAI API Key",
     "openaiApiKeyPlaceholder": "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "step1": "Give a brief description of your project",
