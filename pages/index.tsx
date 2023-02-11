@@ -231,7 +231,7 @@ const Home: NextPage = () => {
                       className='bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border'
                       onClick={() => {
                         navigator.clipboard.writeText(generatedChat.trim())
-                        toast('Chat copied to clipboard', {
+                        toast(t('copyToast'), {
                           icon: '✂️'
                         })
                       }}

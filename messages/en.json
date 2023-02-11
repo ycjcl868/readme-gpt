@@ -20,6 +20,7 @@
     "outlineForm": "Outline",
     "pasteButton": "Paste",
     "clearButton": "Clear",
-    "notice": "Now the service will be unstable due to the surge in visits, so you can first collect this website and use it in your spare time. Everyone is too enthusiastic, and the projects released at random have received far more attention than expected."
+    "notice": "Now the service will be unstable due to the surge in visits, so you can first collect this website and use it in your spare time. Everyone is too enthusiastic, and the projects released at random have received far more attention than expected.",
+    "copyToast": "README copied to clipboard"
   }
 }
