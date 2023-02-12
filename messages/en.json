@@ -16,7 +16,7 @@
     "privacyPolicy1": "Do not upload too private content, details check",
     "privacyPolicy2": "《Privacy Statement》",
     "paragraphForm": "paragraph",
-    "prompt": "Please help me populate the following Github project introduction into a complete Github README description, in markdown format, with some emojis as appropriate:",
+    "prompt": "Please help me populate the following Github project introduction into a complete Github README description, in markdown format, with some emojis as appropriate:{chat}",
     "outlineForm": "Outline",
     "pasteButton": "Paste",
     "clearButton": "Clear",

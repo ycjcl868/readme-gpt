@@ -16,7 +16,7 @@
     "privacyPolicy1": "请勿上传过于隐私的内容，详情查看",
     "privacyPolicy2": "《隐私声明》",
     "paragraphForm": "段落",
-    "prompt": "请帮我把以下的 Github 项目介绍填充为一篇完整的 Github README 说明,用 markdown 格式叙述的形式输出,标题适当加一些 emoji 表情:",
+    "prompt": "请帮我把以下的 Github 项目介绍填充为一篇完整的 Github README 说明,用 markdown 格式叙述的形式输出,标题适当加一些 emoji 表情:{chat}",
     "outlineForm": "大纲",
     "pasteButton": "粘贴",
     "clearButton": "清空",

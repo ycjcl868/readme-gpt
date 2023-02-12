@@ -3,12 +3,11 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState, useEffect, useMemo } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Toaster, toast } from 'react-hot-toast'
 import { TwitterShareButton } from 'react-share'
 import Balancer from 'react-wrap-balancer'
 import { marked } from 'marked'
-import type { FormType } from '../components/DropDown'
 import Footer from '../components/Footer'
 import Github from '../components/GitHub'
 
@@ -25,24 +24,19 @@ const REQUEST_TIMEOUT = 10 * 1000 // 10s timeout
 
 const Home: NextPage = () => {
   const t = useTranslations('Index')
+  const locale = useLocale()
 
   const [loading, setLoading] = useState(false)
   const [chat, setChat] = useState(t('placeholder'))
-  const [form, setForm] = useState<FormType>('paragraphForm')
   const [api_key, setAPIKey] = useState('')
   const [generatedChat, setGeneratedChat] = useState<String>('')
 
   console.log('Streamed response: ', generatedChat)
+  console.log('locale', locale)
 
   useEffect(() => {
     setChat(t('placeholder'))
   }, [t('placeholder')])
-
-  const prompt = useMemo(() => {
-    return form === 'paragraphForm'
-      ? `${t('prompt')}${chat}`
-      : `${t('prompt')}${chat}`
-  }, [form, chat, t('prompt')])
 
   const generateChat = async (e: any) => {
     e.preventDefault()
@@ -64,8 +58,9 @@ const Home: NextPage = () => {
             },
             timeout: REQUEST_TIMEOUT,
             body: JSON.stringify({
-              prompt,
-              api_key
+              chat,
+              api_key,
+              locale
             })
           })
         : await fetchWithTimeout('/api/generate', {
@@ -75,7 +70,8 @@ const Home: NextPage = () => {
             },
             timeout: REQUEST_TIMEOUT,
             body: JSON.stringify({
-              prompt
+              chat,
+              locale
             })
           })
     } catch (e: unknown) {
@@ -91,6 +87,7 @@ const Home: NextPage = () => {
     console.log('Edge function returned.')
 
     if (!response.ok) {
+      toast.error('ERROR: ' + response.statusText)
       throw new Error(response.statusText)
     }
 

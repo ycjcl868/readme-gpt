@@ -1,3 +1,4 @@
+import { createTranslator } from 'next-intl'
 import { OpenAIStream, OpenAIStreamPayload } from '../../utils/OpenAIStream'
 
 if (process.env.NEXT_PUBLIC_USE_USER_KEY !== 'true') {
@@ -11,18 +12,38 @@ export const config = {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  const { prompt, api_key } = (await req.json()) as {
-    prompt?: string
+  const { chat, api_key, locale } = (await req.json()) as {
+    chat: string
+    locale: 'zh' | 'en'
     api_key?: string
   }
 
-  if (!prompt) {
-    return new Response('No prompt in the request', { status: 400 })
+  if (!process.env.OPENAI_MODEL) {
+    throw new Error('Missing env var OPENAI_MODEL from OpenAI')
   }
 
-  if (!process.env.OPENAI_MODEL) {
-    throw new Error('Missing env var from OpenAI')
+  if (!chat) {
+    return new Response('No chat in the request', { status: 400 })
   }
+
+  if (!locale) {
+    return new Response('No locale in the request', { status: 400 })
+  }
+  let messages = {}
+  try {
+    messages = (await import(`../../messages/${locale}.json`)).default
+  } catch (e) {
+    return new Response('No locale in the request', { status: 400 })
+  }
+
+  const t = createTranslator({
+    locale,
+    namespace: 'Index',
+    messages
+  })
+  const prompt = t('prompt', {
+    chat
+  })
 
   const payload: OpenAIStreamPayload = {
     model: process.env.OPENAI_MODEL,
