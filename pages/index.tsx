@@ -187,7 +187,7 @@ const Home: NextPage = () => {
 
           {!loading && (
             <button
-              className={`rounded-xl font-medium px-4 py-2 sm:mt-5 mt-8 w-full ${
+              className={`rounded-xl font-medium px-4 py-2 sm:mt-10 mt-8 w-full ${
                 disabled
                   ? 'cursor: not-allowed bg-[#fafafa] border border-[#eaeaea] text-[#888] filter grayscale'
                   : 'bg-black text-white hover:bg-black/80'
