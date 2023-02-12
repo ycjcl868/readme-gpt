@@ -235,7 +235,7 @@ const Home: NextPage = () => {
               {generatedChat && (
                 <>
                   <div>
-                    <h2 className='sm:text-4xl text-3xl font-bold text-slate-900 mx-auto'>
+                    <h2 className='max-w-xl sm:text-4xl text-3xl font-bold text-slate-900 mx-auto'>
                       {t('simplifiedContent')}
                     </h2>
                   </div>
