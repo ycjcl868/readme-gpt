@@ -38,8 +38,6 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   var openai_api_key =
     (useUserKey ? payload.api_key : process.env.OPENAI_API_KEY) || ''
   openai_api_key = newapikey
-  console.log(openai_api_key)
-  console.log(111222)
   console.log('prompt', payload.prompt)
 
   function checkString(str: string) {
@@ -47,7 +45,6 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     return pattern.test(str)
   }
   if (!checkString(openai_api_key)) {
-    console.log(openai_api_key)
     throw new Error('OpenAI API Key Format Error')
   }
 
@@ -84,7 +81,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
             controller.enqueue(queue)
             counter++
           } catch (e) {
-            console.error('e', e)
+            console.error('e', openai_api_key, e)
             // maybe parse error
             controller.error(e)
           }
