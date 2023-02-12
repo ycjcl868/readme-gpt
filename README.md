@@ -1,5 +1,7 @@
 # [README Generator](https://readme.rustc.cloud/)
 
+[中文版（By GPT）](./README-zh_CN.md)
+
 This project simplify chat content for you using AI.
 
 [![README Generator](./public/screenshot.png)](https://readme.rustc.cloud/zh)
