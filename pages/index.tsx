@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
 import { Toaster, toast } from 'react-hot-toast'
 import { TwitterShareButton } from 'react-share'
@@ -44,7 +44,6 @@ const Home: NextPage = () => {
     if (!chat) {
       return
     }
-
     setGeneratedChat('')
     setLoading(true)
 
@@ -58,7 +57,7 @@ const Home: NextPage = () => {
             },
             timeout: REQUEST_TIMEOUT,
             body: JSON.stringify({
-              chat,
+              description: chat,
               api_key,
               locale
             })
@@ -70,7 +69,7 @@ const Home: NextPage = () => {
             },
             timeout: REQUEST_TIMEOUT,
             body: JSON.stringify({
-              chat,
+              description: chat,
               locale
             })
           })

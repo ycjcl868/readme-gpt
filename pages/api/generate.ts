@@ -12,8 +12,8 @@ export const config = {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  const { chat, api_key, locale } = (await req.json()) as {
-    chat: string
+  const { description, api_key, locale } = (await req.json()) as {
+    description: string
     locale: 'zh' | 'en'
     api_key?: string
   }
@@ -22,8 +22,8 @@ const handler = async (req: Request): Promise<Response> => {
     throw new Error('Missing env var OPENAI_MODEL from OpenAI')
   }
 
-  if (!chat) {
-    return new Response('No chat in the request', { status: 400 })
+  if (!description) {
+    return new Response('No description in the request', { status: 400 })
   }
 
   if (!locale) {
@@ -42,7 +42,7 @@ const handler = async (req: Request): Promise<Response> => {
     messages
   })
   const prompt = t('prompt', {
-    chat
+    description
   })
 
   const payload: OpenAIStreamPayload = {
