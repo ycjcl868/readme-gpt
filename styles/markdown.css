@@ -1040,10 +1040,6 @@
   vertical-align: middle;
 }
 
-.markdown-body .contains-task-list:dir(rtl) .task-list-item-checkbox {
-  margin: 0 -1.6em 0.25em 0.2em;
-}
-
 .markdown-body ::-webkit-calendar-picker-indicator {
   filter: invert(50%);
 }
