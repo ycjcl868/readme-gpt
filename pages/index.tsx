@@ -131,9 +131,7 @@ const Home: NextPage = () => {
 
       <Header />
       <main
-        className={`flex flex-1 w-full flex-col items-center justify-center px-4 ${
-          generatedChat ? 'mt-12' : 'mt-0'
-        }`}
+        className={`flex flex-1 w-full flex-col items-center justify-center px-4 mt-12`}
       >
         <div className='flex items-center justify-center mb-5'>
           <a
