@@ -1,3 +1,3 @@
 module.exports = {
-  '*.@(ts|tsx)': () => ['yarn format']
+  '*.@(ts|tsx)': () => ['yarn type-check', 'yarn format']
 }

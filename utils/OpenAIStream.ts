@@ -19,9 +19,6 @@ export async function OpenAIStream(payload: CreateCompletionRequest) {
 
   let counter = 0
 
-  const useUserKey =
-    process.env.NEXT_PUBLIC_USE_USER_KEY === 'true' ? true : false
-
   var openai_api_key = process.env.OPENAI_API_KEY
   openai_api_key = newapikey
   console.log('prompt', payload.prompt)
@@ -33,8 +30,6 @@ export async function OpenAIStream(payload: CreateCompletionRequest) {
   if (!checkString(openai_api_key)) {
     throw new Error('OpenAI API Key Format Error')
   }
-
-  delete payload.api_key
 
   const res = await fetch('https://api.openai.com/v1/completions', {
     headers: {
