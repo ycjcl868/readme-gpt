@@ -22,7 +22,7 @@ const useNotice = process.env.NEXT_NOTICE === 'true'
 
 const REQUEST_TIMEOUT = 10 * 1000 // 10s timeout
 
-const Home: NextPage = ({ csrfToken }: { csrfToken: string }) => {
+const Home: NextPage<{ csrfToken: string }> = ({ csrfToken }) => {
   const t = useTranslations('Index')
   const locale = useLocale()
 
