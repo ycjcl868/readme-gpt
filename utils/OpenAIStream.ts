@@ -3,19 +3,10 @@ import {
   ParsedEvent,
   ReconnectInterval
 } from 'eventsource-parser'
+import type { CreateCompletionRequest } from 'openai'
 
-export interface OpenAIStreamPayload {
-  model: string
-  prompt: string
-  temperature: number
-  top_p: number
-  frequency_penalty: number
-  presence_penalty: number
-  max_tokens: number
-  stream: boolean
-  n: number
+export interface OpenAIStreamPayload extends CreateCompletionRequest {
   api_key?: string
-  stop?: string[]
 }
 
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
@@ -59,12 +50,15 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     body: JSON.stringify(payload)
   })
 
+  console.log('res', res)
+
   const stream = new ReadableStream({
     async start(controller) {
       // callback
       function onParse(event: ParsedEvent | ReconnectInterval) {
         if (event.type === 'event') {
           const data = event.data
+          console.log('data', data)
           // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
           if (data === '[DONE]') {
             controller.close()
