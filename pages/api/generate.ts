@@ -48,11 +48,11 @@ const handler = async (req: Request): Promise<Response> => {
   const payload: CreateCompletionRequest = {
     model: process.env.OPENAI_MODEL,
     prompt,
-    temperature: 0.8,
+    temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 2000,
+    max_tokens: 1536,
     stream: true,
     n: 1,
     stop: ['<|im_end|>']
