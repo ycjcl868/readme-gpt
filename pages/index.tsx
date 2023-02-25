@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import type { NextPage, GetServerSidePropsContext } from 'next'
+import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
@@ -22,7 +22,7 @@ const useNotice = process.env.NEXT_NOTICE === 'true'
 
 const REQUEST_TIMEOUT = 10 * 1000 // 10s timeout
 
-const Home: NextPage<{ csrfToken: string }> = ({ csrfToken }) => {
+const Home: NextPage = () => {
   const t = useTranslations('Index')
   const locale = useLocale()
 
@@ -59,8 +59,7 @@ const Home: NextPage<{ csrfToken: string }> = ({ csrfToken }) => {
             body: JSON.stringify({
               description: chat,
               api_key,
-              locale,
-              csrf_token: csrfToken
+              locale
             })
           })
         : await fetchWithTimeout('/api/generate', {
@@ -71,8 +70,7 @@ const Home: NextPage<{ csrfToken: string }> = ({ csrfToken }) => {
             timeout: REQUEST_TIMEOUT,
             body: JSON.stringify({
               description: chat,
-              locale,
-              csrf_token: csrfToken
+              locale
             })
           })
     } catch (e: unknown) {
@@ -277,23 +275,12 @@ const Home: NextPage<{ csrfToken: string }> = ({ csrfToken }) => {
 
 export default Home
 
-export async function getServerSideProps({
-  req,
-  res,
-  locale
-}: GetServerSidePropsContext) {
-  console.log('csrfToken', res.getHeader('x-csrf-token'))
-  const csrfToken = res.getHeader('x-csrf-token') || 'missing'
+export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
-      csrfToken,
       messages: {
         ...(await import(`../messages/${locale}.json`))
-      },
-      // Note that when `now` is passed to the app, you need to make sure the
-      // value is updated from time to time, so relative times are updated. See
-      // https://next-intl-docs.vercel.app/docs/usage/configuration#global-now-value
-      now: new Date().getTime()
+      }
     }
   }
 }

@@ -14,7 +14,6 @@
     "@tailwindcss/forms": "^0.5.3",
     "@vercel/analytics": "^0.1.10",
     "dotenv": "^16.0.3",
-    "edge-csrf": "^1.0.3-rc1",
     "eventsource-parser": "^0.0.5",
     "framer-motion": "^8.5.5",
     "marked": "^4.2.12",
