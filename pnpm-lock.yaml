@@ -13,6 +13,7 @@ specifiers:
   autoprefixer: ^10.4.13
   critters: ^0.0.16
   dotenv: ^16.0.3
+  edge-csrf: ^1.0.3-rc1
   eventsource-parser: ^0.0.5
   framer-motion: ^8.5.5
   husky: ^8.0.3
@@ -39,6 +40,7 @@ dependencies:
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.7
   '@vercel/analytics': 0.1.10_react@18.2.0
   dotenv: 16.0.3
+  edge-csrf: 1.0.3-rc1_next@13.2.1
   eventsource-parser: 0.0.5
   framer-motion: 8.5.5_biqbaboplfbrettd7655fr4n2y
   marked: 4.2.12
@@ -741,6 +743,14 @@ packages:
   /eastasianwidth/0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
+
+  /edge-csrf/1.0.3-rc1_next@13.2.1:
+    resolution: {integrity: sha512-fgHVU/sR1v8V6ALbFRpxONo/+Cx4nu1O6P8ZEzLU9MbBLicxj5Huh0p0h9QcSF+N2YUpU4xToxssZJtwOVxBCQ==}
+    peerDependencies:
+      next: ^13.0.0
+    dependencies:
+      next: 13.2.1_biqbaboplfbrettd7655fr4n2y
+    dev: false
 
   /electron-to-chromium/1.4.311:
     resolution: {integrity: sha512-RoDlZufvrtr2Nx3Yx5MB8jX3aHIxm8nRWPJm3yVvyHmyKaRvn90RjzB6hNnt0AkhS3IInJdyRfQb4mWhPvUjVw==}

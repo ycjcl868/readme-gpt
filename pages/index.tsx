@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import type { NextPage } from 'next'
+import type { NextPage, GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
@@ -22,7 +22,7 @@ const useNotice = process.env.NEXT_NOTICE === 'true'
 
 const REQUEST_TIMEOUT = 10 * 1000 // 10s timeout
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ csrfToken }) => {
   const t = useTranslations('Index')
   const locale = useLocale()
 
@@ -59,7 +59,8 @@ const Home: NextPage = () => {
             body: JSON.stringify({
               description: chat,
               api_key,
-              locale
+              locale,
+              csrf_token: csrfToken
             })
           })
         : await fetchWithTimeout('/api/generate', {
@@ -70,7 +71,8 @@ const Home: NextPage = () => {
             timeout: REQUEST_TIMEOUT,
             body: JSON.stringify({
               description: chat,
-              locale
+              locale,
+              csrf_token: csrfToken
             })
           })
     } catch (e: unknown) {
@@ -275,12 +277,22 @@ const Home: NextPage = () => {
 
 export default Home
 
-export function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({
+  req,
+  res,
+  locale
+}: GetServerSidePropsContext) {
+  const csrfToken = res.getHeader('X-CSRF-Token') || 'missing'
   return {
     props: {
+      csrfToken,
       messages: {
-        ...require(`../messages/${locale}.json`)
-      }
+        ...(await import(`../messages/${locale}.json`))
+      },
+      // Note that when `now` is passed to the app, you need to make sure the
+      // value is updated from time to time, so relative times are updated. See
+      // https://next-intl-docs.vercel.app/docs/usage/configuration#global-now-value
+      now: new Date().getTime()
     }
   }
 }
