@@ -1,5 +1,6 @@
 import { createTranslator } from 'next-intl'
-import { OpenAIStream, OpenAIStreamPayload } from '../../utils/OpenAIStream'
+import { CreateCompletionRequest } from 'openai'
+import { OpenAIStream } from '../../utils/OpenAIStream'
 
 if (process.env.NEXT_PUBLIC_USE_USER_KEY !== 'true') {
   if (!process.env.OPENAI_API_KEY) {
@@ -12,10 +13,9 @@ export const config = {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  const { description, api_key, locale } = (await req.json()) as {
+  const { description, locale } = (await req.json()) as {
     description: string
     locale: 'zh' | 'en'
-    api_key?: string
   }
 
   if (!process.env.OPENAI_MODEL) {
@@ -45,7 +45,7 @@ const handler = async (req: Request): Promise<Response> => {
     description
   })
 
-  const payload: OpenAIStreamPayload = {
+  const payload: CreateCompletionRequest = {
     model: process.env.OPENAI_MODEL,
     prompt,
     temperature: 0.8,
@@ -55,8 +55,7 @@ const handler = async (req: Request): Promise<Response> => {
     max_tokens: 2000,
     stream: true,
     n: 1,
-    stop: ['<|im_end|>'],
-    api_key
+    stop: ['<|im_end|>']
   }
 
   const stream = await OpenAIStream(payload)

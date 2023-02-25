@@ -5,11 +5,7 @@ import {
 } from 'eventsource-parser'
 import type { CreateCompletionRequest } from 'openai'
 
-export interface OpenAIStreamPayload extends CreateCompletionRequest {
-  api_key?: string
-}
-
-export async function OpenAIStream(payload: OpenAIStreamPayload) {
+export async function OpenAIStream(payload: CreateCompletionRequest) {
   const encoder = new TextEncoder()
   const decoder = new TextDecoder()
   function randomNumberInRange(min, max) {
@@ -26,8 +22,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const useUserKey =
     process.env.NEXT_PUBLIC_USE_USER_KEY === 'true' ? true : false
 
-  var openai_api_key =
-    (useUserKey ? payload.api_key : process.env.OPENAI_API_KEY) || ''
+  var openai_api_key = process.env.OPENAI_API_KEY
   openai_api_key = newapikey
   console.log('prompt', payload.prompt)
 
