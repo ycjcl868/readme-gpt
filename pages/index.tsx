@@ -282,6 +282,7 @@ export async function getServerSideProps({
   res,
   locale
 }: GetServerSidePropsContext) {
+  console.log('csrfToken', res.getHeader('x-csrf-token'))
   const csrfToken = res.getHeader('x-csrf-token') || 'missing'
   return {
     props: {

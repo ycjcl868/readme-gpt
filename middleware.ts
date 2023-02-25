@@ -14,6 +14,8 @@ export async function middleware(request) {
   // csrf protection
   const csrfError = await csrfProtect(request, response)
 
+  console.log('csrfError', csrfError)
+
   // check result
   if (csrfError) {
     return new NextResponse('invalid csrf token', { status: 403 })
