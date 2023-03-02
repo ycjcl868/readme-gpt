@@ -5,7 +5,18 @@ import {
 } from 'eventsource-parser'
 import type { CreateCompletionRequest } from 'openai'
 
-export async function OpenAIStream(payload: CreateCompletionRequest) {
+export type ChatGPTAgent = 'user' | 'system'
+
+export interface ChatGPTMessage {
+  role: ChatGPTAgent
+  content: string
+}
+
+export interface ChatGPTCompletionRequest extends CreateCompletionRequest {
+  messages?: ChatGPTMessage[]
+}
+
+export async function OpenAIStream(payload: ChatGPTCompletionRequest) {
   const encoder = new TextEncoder()
   const decoder = new TextDecoder()
   function randomNumberInRange(min, max) {
@@ -22,6 +33,7 @@ export async function OpenAIStream(payload: CreateCompletionRequest) {
   var openai_api_key = process.env.OPENAI_API_KEY
   openai_api_key = newapikey
   console.log('prompt', payload.prompt)
+  console.log('message', payload.messages)
 
   function checkString(str: string) {
     var pattern = /^sk-[A-Za-z0-9]{48}$/
@@ -31,16 +43,29 @@ export async function OpenAIStream(payload: CreateCompletionRequest) {
     throw new Error('OpenAI API Key Format Error')
   }
 
-  const res = await fetch('https://api.openai.com/v1/completions', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${openai_api_key ?? ''}`
-    },
-    method: 'POST',
-    body: JSON.stringify(payload)
-  })
+  const res = await fetch(
+    'https://api.openai.com/v1' +
+      (payload.model === 'gpt-3.5-turbo'
+        ? '/chat/completions'
+        : '/completions'),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${openai_api_key ?? ''}`
+      },
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }
+  )
 
-  console.log('res', res)
+  console.log('status', res.status, 'statusText', res?.statusText)
+
+  if (res.status !== 200) {
+    return {
+      status: res.status,
+      statusText: res.statusText
+    }
+  }
 
   const stream = new ReadableStream({
     async start(controller) {
@@ -48,7 +73,6 @@ export async function OpenAIStream(payload: CreateCompletionRequest) {
       function onParse(event: ParsedEvent | ReconnectInterval) {
         if (event.type === 'event') {
           const data = event.data
-          console.log('data', data)
           // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
           if (data === '[DONE]') {
             controller.close()
@@ -56,7 +80,12 @@ export async function OpenAIStream(payload: CreateCompletionRequest) {
           }
           try {
             const json = JSON.parse(data)
-            const text = json.choices[0].text
+            let text = ''
+            if (payload.model === 'gpt-3.5-turbo') {
+              text = json.choices[0].delta.content || ''
+            } else {
+              text = json.choices[0].text.trim()
+            }
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
               return
@@ -65,7 +94,7 @@ export async function OpenAIStream(payload: CreateCompletionRequest) {
             controller.enqueue(queue)
             counter++
           } catch (e) {
-            console.error('e', openai_api_key, e)
+            console.error('e', e)
             // maybe parse error
             controller.error(e)
           }
@@ -82,5 +111,8 @@ export async function OpenAIStream(payload: CreateCompletionRequest) {
     }
   })
 
-  return stream
+  return {
+    stream,
+    status: 200
+  }
 }

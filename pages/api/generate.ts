@@ -1,6 +1,8 @@
 import { createTranslator } from 'next-intl'
-import { CreateCompletionRequest } from 'openai'
-import { OpenAIStream } from '../../utils/OpenAIStream'
+import {
+  OpenAIStream,
+  ChatGPTCompletionRequest
+} from '../../utils/OpenAIStream'
 
 if (process.env.NEXT_PUBLIC_USE_USER_KEY !== 'true') {
   if (!process.env.OPENAI_API_KEY) {
@@ -45,9 +47,8 @@ const handler = async (req: Request): Promise<Response> => {
     description
   })
 
-  const payload: CreateCompletionRequest = {
+  const payload: ChatGPTCompletionRequest = {
     model: process.env.OPENAI_MODEL,
-    prompt,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
@@ -58,7 +59,18 @@ const handler = async (req: Request): Promise<Response> => {
     stop: ['<|im_end|>']
   }
 
-  const stream = await OpenAIStream(payload)
+  if (payload.model === 'gpt-3.5-turbo') {
+    payload.messages = [{ role: 'user', content: prompt }]
+  } else {
+    payload.prompt = prompt
+  }
+
+  const { status, stream, statusText } = await OpenAIStream(payload)
+
+  if (status !== 200) {
+    return new Response(statusText, { status })
+  }
+
   return new Response(stream)
 }
 
