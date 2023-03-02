@@ -16,6 +16,9 @@ export interface ChatGPTCompletionRequest extends CreateCompletionRequest {
   messages?: ChatGPTMessage[]
 }
 
+export const isTurboModel = (model: string) =>
+  ['gpt-3.5-turbo', 'gpt-3.5-turbo-0301'].includes(model)
+
 export async function OpenAIStream(payload: ChatGPTCompletionRequest) {
   const encoder = new TextEncoder()
   const decoder = new TextDecoder()
@@ -45,9 +48,7 @@ export async function OpenAIStream(payload: ChatGPTCompletionRequest) {
 
   const res = await fetch(
     'https://api.openai.com/v1' +
-      (payload.model === 'gpt-3.5-turbo'
-        ? '/chat/completions'
-        : '/completions'),
+      (isTurboModel(payload.model) ? '/chat/completions' : '/completions'),
     {
       headers: {
         'Content-Type': 'application/json',
@@ -81,7 +82,7 @@ export async function OpenAIStream(payload: ChatGPTCompletionRequest) {
           try {
             const json = JSON.parse(data)
             let text = ''
-            if (payload.model === 'gpt-3.5-turbo') {
+            if (isTurboModel(payload.model)) {
               text = json.choices[0].delta.content || ''
             } else {
               text = json.choices[0].text.trim()

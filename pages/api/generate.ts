@@ -1,7 +1,8 @@
 import { createTranslator } from 'next-intl'
 import {
   OpenAIStream,
-  ChatGPTCompletionRequest
+  ChatGPTCompletionRequest,
+  isTurboModel
 } from '../../utils/OpenAIStream'
 
 if (process.env.NEXT_PUBLIC_USE_USER_KEY !== 'true') {
@@ -59,7 +60,7 @@ const handler = async (req: Request): Promise<Response> => {
     stop: ['<|im_end|>']
   }
 
-  if (payload.model === 'gpt-3.5-turbo') {
+  if (isTurboModel(payload.model)) {
     payload.messages = [{ role: 'user', content: prompt }]
   } else {
     payload.prompt = prompt
