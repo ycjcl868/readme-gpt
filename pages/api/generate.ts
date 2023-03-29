@@ -4,6 +4,7 @@ import {
   ChatGPTCompletionRequest,
   isTurboModel
 } from '../../utils/OpenAIStream'
+import { verifySignature } from '../../utils/auth'
 
 if (process.env.NEXT_PUBLIC_USE_USER_KEY !== 'true') {
   if (!process.env.OPENAI_API_KEY) {
@@ -12,17 +13,32 @@ if (process.env.NEXT_PUBLIC_USE_USER_KEY !== 'true') {
 }
 
 export const config = {
-  runtime: 'edge'
+  runtime: 'edge',
+  unstable_allowDynamic: ['/node_modules/js-sha256/src/sha256.js']
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  const { description, locale } = (await req.json()) as {
+  const { description, locale, time, sign } = (await req.json()) as {
     description: string
     locale: 'zh' | 'en'
+    time: number
+    sign: string
   }
 
   if (!process.env.OPENAI_MODEL) {
     throw new Error('Missing env var OPENAI_MODEL from OpenAI')
+  }
+
+  if (
+    !(await verifySignature(
+      {
+        t: time,
+        m: description || ''
+      },
+      sign
+    ))
+  ) {
+    return new Response('Invalid signature', { status: 400 })
   }
 
   if (!description) {
@@ -65,6 +81,8 @@ const handler = async (req: Request): Promise<Response> => {
   } else {
     payload.prompt = prompt
   }
+
+  console.log('payload', payload)
 
   const { status, stream, statusText } = await OpenAIStream(payload)
 

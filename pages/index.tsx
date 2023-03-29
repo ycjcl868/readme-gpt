@@ -16,6 +16,7 @@ import Header from '../components/Header'
 import LoadingDots from '../components/LoadingDots'
 import ResizablePanel from '../components/ResizablePanel'
 import { fetchWithTimeout } from '../utils/fetchWithTimeout'
+import { generateSignature } from '../utils/auth'
 
 const useUserKey = process.env.NEXT_PUBLIC_USE_USER_KEY === 'true'
 const useNotice = process.env.NEXT_NOTICE === 'true'
@@ -48,6 +49,7 @@ const Home: NextPage = () => {
     setLoading(true)
 
     let response
+    const timestamp = Date.now()
     try {
       response = useUserKey
         ? await fetchWithTimeout('/api/generate', {
@@ -59,7 +61,12 @@ const Home: NextPage = () => {
             body: JSON.stringify({
               description: chat,
               api_key,
-              locale
+              locale,
+              time: timestamp,
+              sign: await generateSignature({
+                t: timestamp,
+                m: chat || ''
+              })
             })
           })
         : await fetchWithTimeout('/api/generate', {
@@ -70,7 +77,12 @@ const Home: NextPage = () => {
             timeout: REQUEST_TIMEOUT,
             body: JSON.stringify({
               description: chat,
-              locale
+              locale,
+              time: timestamp,
+              sign: await generateSignature({
+                t: timestamp,
+                m: chat || ''
+              })
             })
           })
     } catch (e: unknown) {

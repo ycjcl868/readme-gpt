@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.0.16",
     "@tailwindcss/forms": "^0.5.3",
     "@vercel/analytics": "^0.1.10",
+    "js-sha256": "^0.9.0",
     "dotenv": "^16.0.3",
     "eventsource-parser": "^0.0.5",
     "framer-motion": "^8.5.5",
