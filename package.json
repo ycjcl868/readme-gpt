@@ -18,7 +18,7 @@
     "eventsource-parser": "^0.0.5",
     "framer-motion": "^8.5.5",
     "marked": "^4.2.12",
-    "next": "^13.2.1",
+    "next": "^13.2.4",
     "next-intl": "^2.10.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
