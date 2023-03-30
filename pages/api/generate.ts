@@ -14,7 +14,7 @@ if (process.env.NEXT_PUBLIC_USE_USER_KEY !== 'true') {
 
 export const config = {
   runtime: 'edge',
-  unstable_allowDynamic: ['/node_modules/js-sha256/src/sha256.js']
+  unstable_allowDynamic: ['/node_modules/js-sha256/**']
 }
 
 const handler = async (req: Request): Promise<Response> => {
